@@ -41,6 +41,9 @@ class AudioSender {
         this.muteBtn = document.getElementById('muteBtn');
         this.localVideo = document.getElementById('localVideo');
         this.audioDeviceSelect = document.getElementById('audioDevice');
+        this.echoCancellationCheckbox = document.getElementById('echoCancellation');
+        this.noiseSuppressionCheckbox = document.getElementById('noiseSuppression');
+        this.autoGainControlCheckbox = document.getElementById('autoGainControl');
     }
 
     setupEventListeners() {
@@ -48,6 +51,11 @@ class AudioSender {
         this.stopBtn.addEventListener('click', () => this.stopStreaming());
         this.muteBtn.addEventListener('click', () => this.toggleMute());
         this.audioDeviceSelect.addEventListener('change', () => this.changeAudioDevice());
+        
+        // 音频处理选项变更监听
+        this.echoCancellationCheckbox.addEventListener('change', () => this.updateAudioConstraints());
+        this.noiseSuppressionCheckbox.addEventListener('change', () => this.updateAudioConstraints());
+        this.autoGainControlCheckbox.addEventListener('change', () => this.updateAudioConstraints());
     }
 
     setupSocketListeners() {
@@ -111,12 +119,23 @@ class AudioSender {
             this.updateStatus('正在获取音频设备...', 'connecting');
             
             const selectedDeviceId = this.audioDeviceSelect.value;
+            const audioConstraints = {
+                echoCancellation: this.echoCancellationCheckbox.checked,
+                noiseSuppression: this.noiseSuppressionCheckbox.checked,
+                autoGainControl: this.autoGainControlCheckbox.checked
+            };
+            
+            if (selectedDeviceId) {
+                audioConstraints.deviceId = selectedDeviceId;
+            }
+            
             const constraints = {
-                audio: selectedDeviceId ? { deviceId: selectedDeviceId } : true,
+                audio: audioConstraints,
                 video: false
             };
-
+            console.log('constraints', constraints);
             this.localStream = await navigator.mediaDevices.getUserMedia(constraints);
+            console.log('localStream', this.localStream, this.localStream.getAudioTracks()[0].getSettings());
             this.localVideo.srcObject = this.localStream;
 
             this.setupPeerConnection();
@@ -223,8 +242,18 @@ class AudioSender {
     async changeAudioDevice() {
         if (this.isStreaming) {
             const selectedDeviceId = this.audioDeviceSelect.value;
+            const audioConstraints = {
+                echoCancellation: this.echoCancellationCheckbox.checked,
+                noiseSuppression: this.noiseSuppressionCheckbox.checked,
+                autoGainControl: this.autoGainControlCheckbox.checked
+            };
+            
+            if (selectedDeviceId) {
+                audioConstraints.deviceId = selectedDeviceId;
+            }
+            
             const constraints = {
-                audio: selectedDeviceId ? { deviceId: selectedDeviceId } : true,
+                audio: audioConstraints,
                 video: false
             };
 
@@ -259,6 +288,13 @@ class AudioSender {
     updateStatus(message, type) {
         this.statusEl.textContent = message;
         this.statusEl.className = `status ${type}`;
+    }
+
+    async updateAudioConstraints() {
+        if (this.isStreaming) {
+            // 如果正在流传输，重新应用音频设备设置
+            await this.changeAudioDevice();
+        }
     }
 }
 

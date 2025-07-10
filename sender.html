@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebRTC 推流端</title>
     <link rel="stylesheet" href="/public/styles.css">
+    <script src="//cdn-hs.yuaiweiwu.com/live/sdk/fe/vconsole.js"></script>
+    <script>
+      var vConsole = new VConsole();
+    </script>
 </head>
 <body>
     <div class="container">
@@ -30,6 +34,22 @@
             <select id="audioDevice" style="margin: 10px; padding: 5px;">
                 <option value="">默认设备</option>
             </select>
+            
+            <h4>音频处理选项</h4>
+            <div class="audio-options">
+                <label>
+                    <input type="checkbox" id="echoCancellation" checked>
+                    回声消除 (Echo Cancellation)
+                </label>
+                <label>
+                    <input type="checkbox" id="noiseSuppression" checked>
+                    噪声抑制 (Noise Suppression)
+                </label>
+                <label>
+                    <input type="checkbox" id="autoGainControl" checked>
+                    自动增益控制 (Auto Gain Control)
+                </label>
+            </div>
         </div>
 
         <div class="info-panel">
