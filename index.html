@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC 音频通信演示</title>
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>WebRTC 音频通信演示</h1>
+        
+        <div class="info-panel">
+            <h3>功能介绍</h3>
+            <p>这是一个基于WebRTC的音频通信演示程序，支持以下功能：</p>
+            <ul style="text-align: left; margin-top: 10px;">
+                <li>两个Web端之间的实时音频通信</li>
+                <li>在拉流端录制音频</li>
+                <li>录制完成后下载音频文件</li>
+                <li>现代化的用户界面</li>
+            </ul>
+        </div>
+
+        <div class="info-panel">
+            <h3>使用说明</h3>
+            <p>请按照以下步骤使用：</p>
+            <ol style="text-align: left; margin-top: 10px;">
+                <li>在两个浏览器窗口（或设备）中分别打开推流端和拉流端</li>
+                <li>在推流端点击"开始推流"按钮</li>
+                <li>在拉流端点击"开始拉流"按钮</li>
+                <li>建立连接后，可以在拉流端录制音频</li>
+                <li>录制完成后可以下载音频文件</li>
+            </ol>
+        </div>
+
+        <div class="home-links">
+            <a href="/sender">🎤 推流端 (发送音频)</a>
+            <a href="/receiver">🎧 拉流端 (接收音频)</a>
+        </div>
+
+        <div class="info-panel">
+            <h3>技术栈</h3>
+            <p>Node.js + Express + Socket.IO + WebRTC API + MediaRecorder API</p>
+        </div>
+    </div>
+</body>
+</html> 

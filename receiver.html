@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC 拉流端</title>
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎧 拉流端 (接收音频)</h1>
+        
+        <div id="status" class="status disconnected">
+            未连接
+        </div>
+
+        <div class="video-container">
+            <video id="remoteVideo" autoplay playsinline></video>
+        </div>
+
+        <div class="control-panel">
+            <button id="startBtn" class="button">开始拉流</button>
+            <button id="stopBtn" class="button danger" disabled>停止拉流</button>
+            <button id="volumeBtn" class="button" disabled>音量: 100%</button>
+        </div>
+
+        <div class="audio-controls">
+            <h3>音频录制</h3>
+            <div class="control-panel">
+                <button id="recordBtn" class="button success" disabled>开始录制</button>
+                <button id="stopRecordBtn" class="button danger" disabled>停止录制</button>
+                <button id="playRecordBtn" class="button" disabled>播放录制</button>
+            </div>
+            
+            <div id="recordingStatus" style="margin: 10px 0; display: none;">
+                <span class="recording-indicator"></span>
+                <span>录制中...</span>
+            </div>
+            
+            <audio id="audioPlayback" controls style="display: none; margin: 10px 0; width: 100%;"></audio>
+            
+            <div id="downloadSection" style="display: none; margin: 10px 0;">
+                <a id="downloadLink" href="#" download="recorded-audio.wav" class="download-link">
+                    📥 下载录制的音频
+                </a>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <h3>操作说明</h3>
+            <p>1. 点击"开始拉流"按钮开始接收音频</p>
+            <p>2. 连接成功后，可以听到推流端的音频</p>
+            <p>3. 点击"开始录制"录制接收到的音频</p>
+            <p>4. 录制完成后可以播放和下载音频文件</p>
+        </div>
+
+        <div class="home-links">
+            <a href="/">🏠 返回首页</a>
+            <a href="/sender">🎤 打开推流端</a>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/public/receiver.js"></script>
+</body>
+</html> 

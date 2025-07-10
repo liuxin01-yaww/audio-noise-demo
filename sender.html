@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC 推流端</title>
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 推流端 (发送音频)</h1>
+        
+        <div id="status" class="status disconnected">
+            未连接
+        </div>
+
+        <div class="video-container">
+            <video id="localVideo" autoplay muted playsinline></video>
+        </div>
+
+        <div class="control-panel">
+            <button id="startBtn" class="button">开始推流</button>
+            <button id="stopBtn" class="button danger" disabled>停止推流</button>
+            <button id="muteBtn" class="button" disabled>静音</button>
+        </div>
+
+        <div class="audio-controls">
+            <h3>音频设置</h3>
+            <label for="audioDevice">选择音频设备:</label>
+            <select id="audioDevice" style="margin: 10px; padding: 5px;">
+                <option value="">默认设备</option>
+            </select>
+        </div>
+
+        <div class="info-panel">
+            <h3>操作说明</h3>
+            <p>1. 点击"开始推流"按钮开始发送音频</p>
+            <p>2. 确保拉流端已经打开并点击"开始拉流"</p>
+            <p>3. 可以使用"静音"按钮控制音频发送</p>
+        </div>
+
+        <div class="home-links">
+            <a href="/">🏠 返回首页</a>
+            <a href="/receiver">🎧 打开拉流端</a>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/public/sender.js"></script>
+</body>
+</html> 
