@@ -81,9 +81,9 @@ app.use('/public', express.static(path.join(__dirname, 'public'), {
     setHeaders: (res, path, stat) => {
         // 为不同类型的文件设置合适的缓存策略
         if (path.endsWith('.js') || path.endsWith('.css')) {
-            res.setHeader('Cache-Control', 'public, max-age=31536000'); // 1年缓存
+            res.setHeader('Cache-Control', 'public, max-age=60'); // 1年缓存
         } else {
-            res.setHeader('Cache-Control', 'public, max-age=86400'); // 1天缓存
+            res.setHeader('Cache-Control', 'public, max-age=60'); // 1天缓存
         }
     }
 }));
